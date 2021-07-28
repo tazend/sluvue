@@ -1,0 +1,113 @@
+/*
+  MIT License
+
+  Copyright (c) 2018 yaminncco
+  Copyright (c) 2021 Toni Harzendorf
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+*/
+.v-sidebar-menu {
+  background-color: $base-bg;
+  .vsm--link {
+    color: $item-color;
+    &_active {
+      color: $item-active-color;
+      background-color: $item-active-bg;
+    }
+    &_level-1 {
+      &.vsm--link_active {
+        box-shadow: 3px 0px 0px 0px $primary-color inset;
+        & .vsm--icon {
+          color: $icon-active-color;
+          background-color: $icon-active-bg;
+        }
+      }
+      & .vsm--icon {
+        background-color: $icon-bg;
+      }
+    }
+    &_hover {
+      color: $item-hover-color;
+      background-color: $item-hover-bg;
+    }
+    &_mobile {
+      color: $mobile-item-color;
+    }
+  }
+
+  &.vsm_expanded {
+    .vsm--link_level-1 {
+      &.vsm--link_open {
+        color: $item-open-color;
+        background-color: $item-open-bg;
+        & .vsm--icon {
+          color: $icon-open-color;
+          background-color: $icon-open-bg;
+        }
+      }
+    }
+  }
+
+  &.vsm_collapsed {
+    .vsm--link_level-1 {
+      &.vsm--link_hover {
+        .vsm--icon {
+          color: $mobile-icon-color;
+          background-color: $mobile-icon-bg;
+        }
+      }
+    }
+  }
+
+  .vsm--icon {
+    color: $icon-color;
+  }
+
+  .vsm--dropdown {
+    background-color: $dropdown-bg;
+    & .vsm--link {
+      color: $dropdown-color;
+    }
+    & .vsm--icon {
+      color: $dropdown-color;
+    }
+  }
+
+  .vsm--mobile-bg {
+    background-color: $mobile-item-bg;
+  }
+
+  &.vsm_rtl {
+    .vsm--link_level-1.vsm--link_active {
+      box-shadow: -3px 0px 0px 0px $primary-color inset;
+    }
+  }
+
+  .vsm--header {
+    color: rgba($item-color, 0.7);
+  }
+  .vsm--badge_default {
+    color: $item-color;
+    background-color: darken( $base-bg, 5% );
+  }
+  .vsm--toggle-btn {
+    color: $item-color;
+    background-color: darken( $base-bg, 5% );
+  }
+}

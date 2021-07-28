@@ -1,0 +1,60 @@
+/*
+  MIT License
+
+  Copyright (c) 2018 yaminncco
+  Copyright (c) 2021 Toni Harzendorf
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+*/
+$primary-color: #4285f4 !default;
+$base-bg: #2a2a2e !default;
+
+$item-color: #fff !default;
+
+$item-active-color: null !default;
+$item-active-bg: null !default;
+
+$item-open-color: #fff !default;
+$item-open-bg: $primary-color !default;
+
+$item-hover-color: null !default;
+$item-hover-bg: rgba(darken($base-bg, 5%), 0.5) !default;
+
+$icon-color: null !default;
+$icon-bg: darken( $base-bg, 5% ) !default;
+
+$icon-active-color: null !default;
+$icon-active-bg: null !default;
+
+$icon-open-color: null !default;
+$icon-open-bg: $item-open-bg !default;
+
+$mobile-item-color: #fff !default;
+$mobile-item-bg: $primary-color !default;
+$mobile-icon-color: $mobile-item-color !default;
+$mobile-icon-bg: $mobile-item-bg !default;
+
+$dropdown-bg: lighten( $base-bg, 5% ) !default;
+$dropdown-color: null !default;
+
+$item-font-size: 16px !default;
+$item-line-height: 30px !default;
+$item-padding: 10px 15px !default;
+$icon-height: 35px !default;
+$icon-width: 35px !default;
