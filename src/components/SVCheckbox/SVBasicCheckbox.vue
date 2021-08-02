@@ -1,13 +1,7 @@
 <template>
   <div class="sv-basic-checkbox">
-    <input
-      :id="identifier"
-      type="checkbox"
-      @input="checkBoxClicked()"
-      :checked="isChecked"
-    />
-    <div class="sv-input--control">
-      <label :for="identifier" class="sv-symbol">
+    <div class="sv-input--control" @click="checkBoxClicked()">
+      <span class="sv-symbol">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -18,7 +12,7 @@
         >
           <path :d="svgPath" />
         </svg>
-      </label>
+      </span>
     </div>
   </div>
 </template>
@@ -29,13 +23,23 @@ import { computed } from "vue";
 export default {
   name: "SVBasicCheckbox",
   props: {
-    identifier: {
-      type: Number,
+    // Array that holds all the "values" of Boxes that are checked
+    boxes: {
+      type: Array,
+      default: () => [],
       required: true,
     },
-    boxes: {
-      Type: Array,
+    // value of a Box (expected to be unique accross checkboxes in "boxes")
+    value: {
+      type: String,
       required: true,
+    },
+    // "values" of other boxes that this Box is a parent of
+    // E.g, checking this box will check all boxes provided in <Array>
+    parentOfBoxes: {
+      type: Array,
+      default: () => [],
+      required: false,
     },
   },
   emits: ["update:boxes"],
@@ -49,21 +53,55 @@ export default {
       "c 0,0.6648 -0.535201,1.200001 -1.200001,1.200001 H 2.7005 c -0.6648,0 " +
       "-1.2,-0.535201 -1.2,-1.200001 V 2.7005 c 0,-0.6648 0.5352,-1.2 1.2,-1.2 z";
 
-    // Check if Box with ID "identifier" is checked
-    // by looking up if it is in the "boxes" Array
+    // Does this Checkbox act as a Parent for other Checkboxes?
+    const isParent = computed(() => {
+      return props.parentOfBoxes && props.parentOfBoxes.length;
+    });
+
+    // See if all boxes are checked that this Checkbox is a Parent of
+    // Always "false" when this Checkbox doesn't act as a Parent
+    const allChecked = computed(() => {
+      let res = false;
+
+      if (isParent.value && props.boxes.length) {
+        if (props.parentOfBoxes.every((el) => props.boxes.includes(el))) {
+          res = true;
+        }
+      }
+
+      return res;
+    });
+
+    // True when "value" of a Box is inside the "boxes" Array
     const isChecked = computed(() => {
-      return props.boxes.includes(props.identifier);
+      let checked = false;
+
+      if (props.boxes.includes(props.value) || allChecked.value) {
+        checked = true;
+      }
+
+      return checked;
     });
 
     function checkBoxClicked() {
       let updatedBoxes = [...props.boxes];
 
-      if (!this.isChecked) {
-        // Add Value to Array
-        updatedBoxes.push(props.identifier);
-      } else {
-        // Remove Value from Array
-        updatedBoxes.splice(updatedBoxes.indexOf(props.identifier), 1);
+      if (!isParent.value) {
+        // This Checkbox is not a Parent of other boxes
+        if (!isChecked.value) {
+          // Add Value to Array
+          updatedBoxes.push(props.value);
+        } else {
+          // Remove Value from Array
+          updatedBoxes.splice(updatedBoxes.indexOf(props.value), 1);
+        }
+      } else if (isParent.value) {
+        // This Checkbox is a parent of other boxes
+        if (allChecked.value) {
+          updatedBoxes = [];
+        } else {
+          updatedBoxes = props.parentOfBoxes;
+        }
       }
 
       // Emit Event that "boxes" Array has been updated
@@ -102,20 +140,9 @@ $basic-checkbox-svg-fill-opacity: 0;
   width: 48px;
   height: 18px;
 
-  input {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
-
   .sv-input--control {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     display: flex;
     justify-content: center;
     margin: 0 auto;
